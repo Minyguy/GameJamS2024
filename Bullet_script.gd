@@ -1,19 +1,20 @@
 extends RigidBody2D
 @onready var speed = 0;
-@onready var direction = Vector2(1,1);
 
 func _ready():
+	speed = 400
+	
+	linear_velocity = Vector2(1,1).direction_to(get_global_mouse_position()-position)*speed
+	position = get_node(Player_CharacterBody2D).position
+	print(linear_velocity)
+	print("THIS SHOULD WORK")
 	pass
+	
+func aim_at_mouse():
+	linear_velocity = Vector2(1,1).direction_to(get_global_mouse_position()-position)*speed
 
-func set_properties(new_speed, new_direction):
-	speed = new_speed
-	direction = new_direction
-	print(speed)
-	print(direction)
-
+	
 
 func _process(delta):
-	var velocity = direction.normalized() * speed
-	velocity.x = move_toward(velocity.x, 0, speed)
-	velocity.y = move_toward(velocity.y, 0, speed)
+	pass
 	 

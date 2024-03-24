@@ -11,5 +11,4 @@ position = Vector2(269, 231)
 
 [node name="Bullet_RigidBody2D" parent="." instance=ExtResource("2_jqajl")]
 position = Vector2(491, 284)
-gravity_scale = 0.0
 script = ExtResource("3_4aech")

@@ -10,11 +10,12 @@ var mouse = Vector2(0,0)
 
 
 func shoot_bullet(direction, speed):
+	
 	var bulletInst = bullet_path.instantiate()
-	add_child(bulletInst)
-	
-	
-	
+	add_sibling(bulletInst)
+
+
+
 func _physics_process(delta):
 
 	# Get the input direction and handle the movement/deceleration.
@@ -24,7 +25,7 @@ func _physics_process(delta):
 	if not curr_shoot_cd:
 		if Input.is_action_pressed("shoot"):
 			print(get_global_mouse_position())
-			# shoot_bullet(get_global_mouse_position(),100)
+			shoot_bullet(get_global_mouse_position(),100)
 			curr_shoot_cd = base_shoot_cd
 	else:
 		curr_shoot_cd = move_toward(curr_shoot_cd, 0, 1)    
