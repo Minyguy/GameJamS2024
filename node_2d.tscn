@@ -5,8 +5,8 @@
 
 [node name="Node2D" type="Node2D"]
 
-[node name="Player_CharacterBody2D" parent="." instance=ExtResource("1_dqhjy")]
+[node name="Player" parent="." instance=ExtResource("1_dqhjy")]
 position = Vector2(269, 231)
 
-[node name="Bullet_RigidBody2D" parent="." instance=ExtResource("2_jqajl")]
+[node name="Bullet" parent="." instance=ExtResource("2_jqajl")]
 position = Vector2(491, 284)
