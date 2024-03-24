@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://btj28aey4bmvx"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_c773c"]
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_55xyp"]
+
+[node name="Bullet_RigidBody2D" type="RigidBody2D"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_c773c")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(20, 20)
+texture = SubResource("CanvasTexture_55xyp")

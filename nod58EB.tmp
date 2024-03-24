@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://08fjhd2aau2e"]
+
+[ext_resource type="PackedScene" uid="uid://c3gjwjxockf7c" path="res://player.tscn" id="1_dqhjy"]
+[ext_resource type="PackedScene" uid="uid://btj28aey4bmvx" path="res://Bullet.tscn" id="2_jqajl"]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="Player_CharacterBody2D" parent="." instance=ExtResource("1_dqhjy")]
+position = Vector2(269, 231)
+
+[node name="Bullet_RigidBody2D" parent="." instance=ExtResource("2_jqajl")]
+position = Vector2(491, 284)
