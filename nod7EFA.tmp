@@ -1,0 +1,52 @@
+[gd_scene load_steps=5 format=3 uid="uid://08fjhd2aau2e"]
+
+[ext_resource type="PackedScene" uid="uid://c3gjwjxockf7c" path="res://player.tscn" id="1_dqhjy"]
+[ext_resource type="PackedScene" uid="uid://btj28aey4bmvx" path="res://Bullet.tscn" id="2_jqajl"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qkg45"]
+size = Vector2(28, 375)
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_lad6o"]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="Player" parent="." instance=ExtResource("1_dqhjy")]
+position = Vector2(269, 231)
+motion_mode = 0
+
+[node name="Bullet" parent="." instance=ExtResource("2_jqajl")]
+position = Vector2(491, 284)
+gravity_scale = 1.0
+
+[node name="RigidBody2D" type="RigidBody2D" parent="."]
+disable_mode = 1
+mass = 118.05
+gravity_scale = 0.0
+freeze = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D"]
+position = Vector2(590, 419.5)
+shape = SubResource("RectangleShape2D_qkg45")
+
+[node name="Sprite2D" type="Sprite2D" parent="RigidBody2D"]
+position = Vector2(590, 419.5)
+scale = Vector2(28, 375)
+texture = SubResource("CanvasTexture_lad6o")
+
+[node name="RigidBody2D2" type="RigidBody2D" parent="."]
+position = Vector2(-201, -143)
+disable_mode = 1
+mass = 118.05
+gravity_scale = 0.0
+freeze = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D2"]
+position = Vector2(547, 611.5)
+rotation = 1.5708
+shape = SubResource("RectangleShape2D_qkg45")
+
+[node name="Sprite2D" type="Sprite2D" parent="RigidBody2D2"]
+position = Vector2(547, 611.5)
+rotation = 1.5708
+scale = Vector2(28, 375)
+texture = SubResource("CanvasTexture_lad6o")

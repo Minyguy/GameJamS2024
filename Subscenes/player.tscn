@@ -1,0 +1,213 @@
+[gd_scene load_steps=32 format=3 uid="uid://c3gjwjxockf7c"]
+
+[ext_resource type="Script" path="res://Scripts/PlayerScript.gd" id="1_tkges"]
+[ext_resource type="Texture2D" uid="uid://b4c7482me8fuw" path="res://Sprites/Player/Idle (32x32).png" id="2_gsxl5"]
+[ext_resource type="Texture2D" uid="uid://ccvgakfw76yck" path="res://Sprites/Player/Fall (32x32).png" id="3_ijqxp"]
+[ext_resource type="Texture2D" uid="uid://c0ks52hupki1s" path="res://Sprites/Player/Run (32x32).png" id="4_iolt2"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_vpxbw"]
+radius = 4.0
+height = 12.0
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_ehtw0"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_niweq"]
+atlas = ExtResource("2_gsxl5")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4nsho"]
+atlas = ExtResource("2_gsxl5")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_20rtr"]
+atlas = ExtResource("2_gsxl5")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qy2ec"]
+atlas = ExtResource("2_gsxl5")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ysl3y"]
+atlas = ExtResource("2_gsxl5")
+region = Rect2(128, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4l2fv"]
+atlas = ExtResource("2_gsxl5")
+region = Rect2(160, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1a4p8"]
+atlas = ExtResource("2_gsxl5")
+region = Rect2(192, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g1sg8"]
+atlas = ExtResource("2_gsxl5")
+region = Rect2(224, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f4nbu"]
+atlas = ExtResource("2_gsxl5")
+region = Rect2(256, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pyrjj"]
+atlas = ExtResource("2_gsxl5")
+region = Rect2(288, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_80qpc"]
+atlas = ExtResource("2_gsxl5")
+region = Rect2(320, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sr0p6"]
+atlas = ExtResource("3_ijqxp")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_27ib2"]
+atlas = ExtResource("4_iolt2")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5onon"]
+atlas = ExtResource("4_iolt2")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ea0xp"]
+atlas = ExtResource("4_iolt2")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8bj8e"]
+atlas = ExtResource("4_iolt2")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dm1gw"]
+atlas = ExtResource("4_iolt2")
+region = Rect2(128, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ik1vk"]
+atlas = ExtResource("4_iolt2")
+region = Rect2(160, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oanjb"]
+atlas = ExtResource("4_iolt2")
+region = Rect2(192, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gn2s0"]
+atlas = ExtResource("4_iolt2")
+region = Rect2(224, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fsp0p"]
+atlas = ExtResource("4_iolt2")
+region = Rect2(256, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_htg6g"]
+atlas = ExtResource("4_iolt2")
+region = Rect2(288, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ubwwd"]
+atlas = ExtResource("4_iolt2")
+region = Rect2(320, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ixrm4"]
+atlas = ExtResource("4_iolt2")
+region = Rect2(352, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_oj7yr"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_niweq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4nsho")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_20rtr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qy2ec")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ysl3y")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4l2fv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1a4p8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g1sg8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f4nbu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pyrjj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_80qpc")
+}],
+"loop": true,
+"name": &"default",
+"speed": 15.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sr0p6")
+}],
+"loop": true,
+"name": &"jumping",
+"speed": 15.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_27ib2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5onon")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ea0xp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8bj8e")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dm1gw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ik1vk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oanjb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gn2s0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fsp0p")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_htg6g")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ubwwd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ixrm4")
+}],
+"loop": true,
+"name": &"running",
+"speed": 15.0
+}]
+
+[node name="Player_CharacterBody2D" type="CharacterBody2D"]
+motion_mode = 1
+script = ExtResource("1_tkges")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2(0, 2)
+shape = SubResource("CapsuleShape2D_vpxbw")
+
+[node name="Sprite2D" type="AnimatedSprite2D" parent="."]
+material = SubResource("CanvasItemMaterial_ehtw0")
+scale = Vector2(0.398437, 0.484375)
+sprite_frames = SubResource("SpriteFrames_oj7yr")
+frame_progress = 0.785739
