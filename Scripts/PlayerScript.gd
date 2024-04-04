@@ -1,6 +1,6 @@
 extends CharacterBody2D
 
-const FLOAT_MOD = 1.0
+const FLOAT_MOD = 100.0
 const SPEED = 300.0
 const gravity = 2800
 const JUMP_VELOCITY = 1000
