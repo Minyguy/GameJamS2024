@@ -4,10 +4,14 @@ const FLOAT_MOD = 100.0
 const SPEED = 300.0
 const gravity = 2800
 const JUMP_VELOCITY = 1000
+var target = find_child("Target")
 var base_shoot_cd = 30
 var curr_shoot_cd = 0
 var mouse = Vector2(0,0)
 var alive = true
+var worm_time = false
+var jumpChat = 0
+var wormPortal = []
 @onready var bullet_path = preload("res://Subscenes/Bullet.tscn")
 
 
@@ -18,7 +22,7 @@ func shoot_bullet(direction, speed):
 	add_sibling(bulletInst)
 
 func _process(delta):
-	if (alive):
+	if (alive and not worm_time):
 		if not curr_shoot_cd:
 			if Input.is_action_pressed("shoot"):
 				print(get_global_mouse_position())
@@ -27,7 +31,14 @@ func _process(delta):
 		else:
 			curr_shoot_cd = move_toward(curr_shoot_cd, 0, 1)    
 			
+		if Input.is_action_just_pressed("Start_Worming") and alive and is_on_floor() and target:
+			print("WORMTIME")
+			worm_time = true
 			
+	if(worm_time):
+		pass
+
+
 func _physics_process(delta):
 
 	# Get the input direction and handle the movement/deceleration.
@@ -40,8 +51,17 @@ func _physics_process(delta):
 
 	# Handle jump.
 	if Input.is_action_just_pressed("jump") and is_on_floor() and alive:
-		print("JUMP")
+		
 		velocity.y = -JUMP_VELOCITY
+		if jumpChat == 0:
+			print("Hop")
+			jumpChat = 1
+		elif jumpChat == 1:
+			print("Skip")
+			jumpChat = 2
+		elif jumpChat == 2:
+			print("Jump")
+			jumpChat = 0
 
 	# Get the input direction and handle the movement/deceleration.
 	# As good practice, you should replace UI actions with custom gameplay actions.
@@ -59,3 +79,8 @@ func _physics_process(delta):
 		if body.name == "BasicEnemy":
 			print("YOU DIE!!!!")
 			alive = false
+			
+	if Input.is_action_just_pressed("dev_resurrect"):
+		alive = true
+		worm_time = false
+		position = get_global_mouse_position()
