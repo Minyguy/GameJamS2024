@@ -4,9 +4,8 @@
 [ext_resource type="Texture2D" uid="uid://dk5axpa5u468v" path="res://Sprites/Enemies/Basic/Hit (32x32).png" id="1_x7k5m"]
 [ext_resource type="Texture2D" uid="uid://b8sl5eu4ef42b" path="res://Sprites/Enemies/Basic/Idle (32x32).png" id="2_staud"]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_sjiej"]
-radius = 16.6202
-height = 67.4386
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gdp04"]
+size = Vector2(31.5785, 62.6215)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_p2f23"]
 atlas = ExtResource("1_x7k5m")
@@ -151,8 +150,9 @@ animations = [{
 script = ExtResource("1_3rqj7")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(4.76837e-07, 2)
 scale = Vector2(1.20335, 0.830386)
-shape = SubResource("CapsuleShape2D_sjiej")
+shape = SubResource("RectangleShape2D_gdp04")
 
 [node name="Sprite2D" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
