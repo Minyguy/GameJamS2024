@@ -1,18 +1,17 @@
 [gd_scene load_steps=4 format=3 uid="uid://btj28aey4bmvx"]
 
 [ext_resource type="Script" path="res://Scripts/Bullet_script.gd" id="1_1v33q"]
-[ext_resource type="Texture2D" uid="uid://bcnll5ld2a6p7" path="res://Sprites/Terrain/box.png" id="2_0h3o8"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bvpga"]
-size = Vector2(32, 32)
 
-[node name="Bullet_RigidBody2D" type="RigidBody2D"]
+[sub_resource type="CanvasTexture" id="CanvasTexture_55xyp"]
+
+[node name="Bullet" type="RigidBody2D"]
 script = ExtResource("1_1v33q")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_bvpga")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture_filter = 1
-scale = Vector2(2, 2)
-texture = ExtResource("2_0h3o8")
+scale = Vector2(20, 20)
+texture = SubResource("CanvasTexture_55xyp")

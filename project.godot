@@ -80,3 +80,7 @@ Start_Worming={
 
 2d_physics/layer_1="Generic"
 2d_physics/layer_2="Ground"
+
+[rendering]
+
+renderer/rendering_method="gl_compatibility"
