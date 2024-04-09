@@ -15,12 +15,13 @@ var jumpChat = 0
 var wormPortal = []
 @onready var ground = get_parent().find_child("TileMap")
 @onready var target = find_child("Target")
-@onready var camera = %Camera2D
+@onready var camera = %Camera_tracker
 @onready var bullet_path = preload("res://Subscenes/Bullet.tscn")
-@onready var portal_path = preload("res://Subscenes/Portal_Opening.tscn")
 @onready var _animated_sprite = $AnimatedSprite2D
-#@onready var portal_link_path = preload("res://Subscenes/Portal_Ground.tscn")
+@onready var portal = %PortalController
 
+func stop_worming():
+	worm_time = false
 
 func shoot_bullet(speed, radius) -> int:
 	
@@ -65,17 +66,17 @@ func _process(delta):
 				
 			if Input.is_action_just_pressed("Start_Worming") and alive:
 				var map_coords = ground.local_to_map(ground.to_local(target.global_position))
-				print(map_coords)
-				print(target.global_position)
-				print(ground.get_cell_tile_data(0, map_coords))
 				
 				if (ground.get_cell_tile_data(0, map_coords) != null):
 					print("WORMTIME")
-					var portalInst = portal_path.instantiate()
-					portalInst.position = target.position
-					add_sibling(portalInst)
-					portalInst.position = target.global_position
+					
 					#worm_time = true
+					
+					var worm_pos = global_position
+					while ground.get_cell_tile_data(0, ground.local_to_map(ground.to_local(worm_pos))) == null:
+						worm_pos += worm_pos.direction_to(target.global_position)
+					portal.start_worming(worm_pos)
+					%Camera_tracker.switch_target(%PortalController)
 				
 
 
@@ -124,5 +125,6 @@ func _physics_process(delta):
 	if Input.is_action_just_pressed("dev_resurrect"):
 		alive = true
 		worm_time = false
-		camera.switch_target(%Player)
 		position = get_global_mouse_position()
+		camera.switch_target(%Player)
+		

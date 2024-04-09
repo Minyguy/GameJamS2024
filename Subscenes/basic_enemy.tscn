@@ -1,12 +1,12 @@
 [gd_scene load_steps=37 format=3 uid="uid://bm0qt0cre1l3x"]
 
-[ext_resource type="Script" path="res://Subscenes/basic_enemy.gd" id="1_3rqj7"]
+[ext_resource type="Script" path="res://Scripts/basic_enemy.gd" id="1_3rqj7"]
 [ext_resource type="Texture2D" uid="uid://dk5axpa5u468v" path="res://Sprites/Enemies/Basic/Hit (32x32).png" id="1_x7k5m"]
 [ext_resource type="Texture2D" uid="uid://b8sl5eu4ef42b" path="res://Sprites/Enemies/Basic/Idle (32x32).png" id="2_staud"]
 [ext_resource type="Texture2D" uid="uid://dykkm8jj3wpdr" path="res://Sprites/Enemies/Basic/Run (32x32).png" id="4_6iynr"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gdp04"]
-size = Vector2(31.5785, 62.6215)
+size = Vector2(31.5785, 65.03)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_p2f23"]
 atlas = ExtResource("1_x7k5m")
@@ -240,7 +240,7 @@ animations = [{
 script = ExtResource("1_3rqj7")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(4.76837e-07, 2)
+position = Vector2(4.76837e-07, 1)
 scale = Vector2(1.20335, 0.830386)
 shape = SubResource("RectangleShape2D_gdp04")
 
@@ -250,4 +250,5 @@ position = Vector2(-1, -4)
 scale = Vector2(2, 2.00064)
 sprite_frames = SubResource("SpriteFrames_4c6uj")
 animation = &"run"
-frame_progress = 0.79822
+frame = 5
+frame_progress = 0.87754
