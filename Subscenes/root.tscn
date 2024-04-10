@@ -9,6 +9,7 @@
 [ext_resource type="Script" path="res://Subscenes/Camera_tracker.gd" id="7_ihih4"]
 [ext_resource type="PackedScene" uid="uid://bm0qt0cre1l3x" path="res://Subscenes/basic_enemy.tscn" id="8_jyfs4"]
 [ext_resource type="PackedScene" uid="uid://cqm6qwo4sq81" path="res://Subscenes/player.tscn" id="9_qyrkm"]
+[ext_resource type="PackedScene" uid="uid://d0xilu2ot703w" path="res://Subscenes/pickups.tscn" id="10_gid21"]
 
 [sub_resource type="GDScript" id="GDScript_fg7mj"]
 script/source = "extends TextureRect
@@ -496,6 +497,8 @@ func _process(delta):
 [sub_resource type="CircleShape2D" id="CircleShape2D_xgd5i"]
 radius = 28.0
 
+[sub_resource type="TileSet" id="TileSet_51a3j"]
+
 [node name="root" type="Node2D"]
 
 [node name="TextureRect" type="TextureRect" parent="."]
@@ -561,4 +564,9 @@ position = Vector2(78, 514)
 [node name="Player" parent="." instance=ExtResource("9_qyrkm")]
 unique_name_in_owner = true
 
+<<<<<<< Updated upstream
 [connection signal="area_entered" from="PortalController" to="PortalController" method="_on_area_entered"]
+=======
+[node name="Pickups" parent="." instance=ExtResource("10_gid21")]
+tile_set = SubResource("TileSet_51a3j")
+>>>>>>> Stashed changes

@@ -9,6 +9,7 @@ var DIRECTION_WALK = 1 # Rightwards, Leftwards = -1
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 @onready var ground = get_parent().find_child("TileMap")
 @onready var _animated_sprite = $AnimatedSprite2D
+@onready var TYPE = "Enemy"
 
 func _physics_process(delta):
 	# Add the gravity.
@@ -34,7 +35,6 @@ func _physics_process(delta):
 	for index in get_slide_collision_count():
 		var collisionStuff := get_slide_collision(index)
 		var body := collisionStuff.get_collider()
-		print(body.name)
 		if (body.TYPE != null):
 			if body.TYPE == "Bullet":
 				flip_direction = true
