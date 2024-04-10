@@ -5,7 +5,7 @@ const FLOAT_MOD = 800.0
 const gravity = 2800
 @export var JUMP_VELOCITY = 1000
 const TYPE = "Player"
-
+var facing_right = true
 var base_shoot_cd = 30
 var curr_shoot_cd = 0
 var mouse = Vector2(0,0)
@@ -17,7 +17,7 @@ var wormPortal = []
 @onready var target = find_child("Target")
 @onready var camera = %Camera_tracker
 @onready var bullet_path = preload("res://Subscenes/Bullet.tscn")
-@onready var _animated_sprite = $AnimatedSprite2D
+@onready var _animated_sprite = $Sprite2D
 @onready var portal = %PortalController
 
 func stop_worming():
@@ -87,8 +87,16 @@ func _physics_process(delta):
 	
 	if not is_on_floor() and Input.is_action_pressed("jump") and alive:
 		velocity.y += (gravity - FLOAT_MOD) * delta
+		if velocity.y < 0:
+			_animated_sprite.play("jumping")
+		else:
+			_animated_sprite.play("falling")
 	elif not is_on_floor():
 		velocity.y += gravity * delta
+		if velocity.y < 0:
+			_animated_sprite.play("jumping")
+		else:
+			_animated_sprite.play("falling")
 	
 	
 	# Handle jump.
@@ -110,8 +118,24 @@ func _physics_process(delta):
 	var direction = Input.get_axis("ui_left", "ui_right")
 	if direction and alive:
 		velocity.x = direction * SPEED
+		print(direction)
+		if is_on_floor():
+			_animated_sprite.play("running")
+		if direction == -1:
+			print("Walking Left")
+			if facing_right:
+				_animated_sprite.scale.x *= -1
+				facing_right = false
+		elif direction == 1:
+			print("Walking Right")
+			if not facing_right:
+				_animated_sprite.scale.x *= -1
+				facing_right = true
+		
 	else:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
+		if is_on_floor():
+			_animated_sprite.play("default")
 
 	move_and_slide()
 
