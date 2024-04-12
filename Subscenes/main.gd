@@ -17,4 +17,5 @@ func _on_button_pressed():
 		var game = play_game.instantiate()
 		add_child(game)
 		in_menu = false
+		%MenuContainer.visible = false
 		pass # Replace with function body.

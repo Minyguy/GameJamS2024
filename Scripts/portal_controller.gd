@@ -73,25 +73,28 @@ func summon_portal(thing: int):
 	match thing:
 		0:
 			var portal_instance = PortalDoor.instantiate()
-			add_sibling(portal_instance)
+			
 			portal_instance.set_subtype("Link")
 			portal_instance.global_position = global_position
 			portal_instance.rotation = direction.angle()
+			add_sibling(portal_instance)
 			return portal_instance
 		1:
 			var portal_instance = PortalDoor.instantiate()
-			add_sibling(portal_instance)
+			
 			portal_instance.set_subtype("Door")
 			portal_instance.global_position = global_position
 			portal_instance.rotation = direction.angle()
+			add_sibling(portal_instance)
 			return portal_instance
 		2:
 			var portal_instance = PortalDoor.instantiate()
-			add_sibling(portal_instance)
+			
 			portal_instance.set_subtype("Door")
 			portal_instance.global_position = global_position
 			portal_instance.z_index += 1
 			portal_instance.rotation = PI+direction.angle()
+			add_sibling(portal_instance)
 			return portal_instance
 		_:
 			print("SOMETHING IS WRONG")

@@ -33,7 +33,7 @@ func shoot_bullet(speed, radius) -> int:
 		bulletInst.linear_velocity = position.direction_to(get_global_mouse_position())*speed
 		bulletInst.position = position + position.direction_to(get_global_mouse_position())*radius
 		
-		camera.switch_target(bulletInst)
+		
 		
 		return 1
 	else:
@@ -84,7 +84,10 @@ func _physics_process(delta):
 
 	# Get the input direction and handle the movement/deceleration.
 	# As good practice, you should replace UI actions with custom gameplay actions.
-	
+	if position.y >= 3000:
+		position = Vector2(150, 500)
+		velocity.y = 0
+		velocity.x = 0
 	if not is_on_floor() and Input.is_action_pressed("jump") and alive:
 		velocity.y += (gravity - FLOAT_MOD) * delta
 		if velocity.y < 0:
@@ -118,16 +121,14 @@ func _physics_process(delta):
 	var direction = Input.get_axis("ui_left", "ui_right")
 	if direction and alive:
 		velocity.x = direction * SPEED
-		print(direction)
+		
 		if is_on_floor():
 			_animated_sprite.play("running")
 		if direction == -1:
-			print("Walking Left")
 			if facing_right:
 				_animated_sprite.scale.x *= -1
 				facing_right = false
 		elif direction == 1:
-			print("Walking Right")
 			if not facing_right:
 				_animated_sprite.scale.x *= -1
 				facing_right = true
@@ -145,6 +146,7 @@ func _physics_process(delta):
 		if body.name == "BasicEnemy":
 			print("YOU DIE!!!!")
 			alive = false
+				
 			
 	if Input.is_action_just_pressed("dev_resurrect"):
 		alive = true

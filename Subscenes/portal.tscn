@@ -67,3 +67,5 @@ animation = &"portal_link"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_e2bwp")
+
+[connection signal="body_shape_entered" from="." to="." method="_on_body_shape_entered"]
