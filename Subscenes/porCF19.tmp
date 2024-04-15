@@ -1,0 +1,71 @@
+[gd_scene load_steps=10 format=3 uid="uid://b7xsgetheppij"]
+
+[ext_resource type="Texture2D" uid="uid://qhs530ocv8f7" path="res://Sprites/Player/Portal_Door.png" id="1_28iit"]
+[ext_resource type="Script" path="res://Scripts/portal_dummy.gd" id="1_skb23"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kp0tv"]
+atlas = ExtResource("1_28iit")
+region = Rect2(5, 0, 23, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f0hp7"]
+atlas = ExtResource("1_28iit")
+region = Rect2(35, 0, 23, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7qp0f"]
+atlas = ExtResource("1_28iit")
+region = Rect2(65, 0, 23, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_eett2"]
+atlas = ExtResource("1_28iit")
+region = Rect2(95, 0, 23, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_endtv"]
+atlas = ExtResource("1_28iit")
+region = Rect2(125, 0, 23, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ani4m"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kp0tv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f0hp7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7qp0f")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_eett2")
+}],
+"loop": true,
+"name": &"portal_door",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_endtv")
+}],
+"loop": true,
+"name": &"portal_link",
+"speed": 0.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_e2bwp"]
+radius = 11.0
+
+[node name="PortalDoor" type="Area2D"]
+z_index = 5
+script = ExtResource("1_skb23")
+
+[node name="Sprite2D" type="AnimatedSprite2D" parent="."]
+z_index = 1
+texture_filter = 1
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_ani4m")
+animation = &"portal_link"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_e2bwp")
+
+[connection signal="body_shape_entered" from="." to="." method="_on_body_shape_entered"]

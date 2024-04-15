@@ -571,6 +571,6 @@ position = Vector2(1226, 510)
 
 [node name="Player" parent="." instance=ExtResource("9_qyrkm")]
 unique_name_in_owner = true
-position = Vector2(867, 502)
+position = Vector2(1426, 690)
 
 [connection signal="area_entered" from="PortalController" to="PortalController" method="_on_area_entered"]

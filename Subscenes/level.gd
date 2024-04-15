@@ -11,5 +11,5 @@ func _process(delta):
 	pass
 
 func _on_entity_teleport(object):
-	print("Entity gets teleported")
+	print(object.name + " SHOULD BE TELEPORTED")
 	pass

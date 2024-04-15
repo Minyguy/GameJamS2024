@@ -215,6 +215,7 @@ animations = [{
 radius = 6.08276
 
 [node name="Player" type="CharacterBody2D"]
+z_index = 55
 texture_filter = 1
 script = ExtResource("1_2fww8")
 
