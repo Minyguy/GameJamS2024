@@ -9,6 +9,8 @@ var teleporting = false
 var portal
 var portal_position
 var in_portal
+var tp_cooldown
+
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 @onready var ground = get_parent().find_child("TileMap")
@@ -18,6 +20,10 @@ var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
 func _physics_process(delta):
 	var flip_direction = false
+	
+	if (tp_cooldown > 0):
+		tp_cooldown -= delta
+	
 	
 	if(teleporting):
 		# Havent entered toob yet
@@ -93,3 +99,7 @@ func start_teleport(_portal, _position):
 	teleporting = true
 	portal_position = _position
 	portal = _portal
+	
+
+func get_tp_cooldown():
+	return tp_cooldown
