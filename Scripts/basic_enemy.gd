@@ -9,8 +9,9 @@ var teleporting = false
 var portal
 var portal_position
 var in_portal
-var tp_cooldown
-
+var tp_cooldown = 0
+var is_left_in_portal
+var post_tp_grow = false
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 @onready var ground = get_parent().find_child("TileMap")
@@ -22,24 +23,37 @@ func _physics_process(delta):
 	var flip_direction = false
 	
 	if (tp_cooldown > 0):
+		
 		tp_cooldown -= delta
+		if tp_cooldown <= 0:
+			tp_cooldown = 0
+			print("Enemy can teleport again")
 	
+	if post_tp_grow:
+		scale.x = move_toward(scale.x, sign(scale.x), 0.1)
+		scale.y = move_toward(scale.y, sign(scale.y), 0.1)
+		if scale == Vector2(1, 1):
+			post_tp_grow = false
 	
 	if(teleporting):
 		# Havent entered toob yet
 		if(visible):
-			if scale == Vector2(0.45,-0.45):
+			if scale == Vector2(sign(scale.x)*0.45,sign(scale.y)*0.45):
 				visible = false
 				pass
 			
 			else:
 				position = position.move_toward(portal_position, 6)
-				scale = scale.move_toward(Vector2(0.45,-0.45), 0.15)
+				scale = scale.move_toward(Vector2(sign(scale.x)*0.45, sign(scale.y)*0.45), 0.15)
 		
 		# Has entered toob, send signal to portal
 		else:
 			if not in_portal:
-				portal.do_teleport(self, true)
+				if(is_left_in_portal):
+					print("Starting tp with direction left")
+				else:
+					print("Starting tp with direction right")
+				portal.do_teleport(self, true, is_left_in_portal)
 				in_portal = true
 	
 	
@@ -95,10 +109,25 @@ func _physics_process(delta):
 			DIRECTION_WALK *= -1
 			scale.x *= -1
 
-func start_teleport(_portal, _position):
+func start_teleport(_portal, _position, is_left_direction):
+	if(is_left_direction):
+		print("Starting tp with direction left")
+	else:
+		print("Starting tp with direction right")
 	teleporting = true
 	portal_position = _position
 	portal = _portal
+	tp_cooldown = 3
+	is_left_in_portal = is_left_direction
+	physics_enabled = false
+	
+
+func stop_teleport():
+	teleporting = false
+	in_portal = false
+	physics_enabled = true
+	visible = true
+	post_tp_grow = true
 	
 
 func get_tp_cooldown():

@@ -16,6 +16,7 @@ var prev_portal : Area2D
 var link_counter = 0
 var link_list = []
 var shrink_away_list = []
+
 func start_worming(new_position):
 	queue_delete_portals()
 	scale = Vector2(0.1, 0.1)
@@ -107,7 +108,7 @@ func summon_portal(thing: int):
 			prev_portal = portal_instance
 			portal_instance.approved_types = ["Enemy", "Player"]
 			prev_portal.right_portal = portal_instance
-			portal_instance.left_right = "right"
+			portal_instance.left_right = false
 			add_sibling(portal_instance)
 			return portal_instance
 		
@@ -123,7 +124,7 @@ func summon_portal(thing: int):
 			portal_instance.right_portal = "Air"
 			portal_instance.approved_types = ["Enemy", "Player"]
 			prev_portal.right_portal = portal_instance
-			portal_instance.left_right = "left"
+			portal_instance.left_right = true
 			add_sibling(portal_instance)
 			return portal_instance
 		_:
@@ -143,6 +144,7 @@ func shrink_away_portals():
 	
 	for del in delete_link_list:
 		shrink_away_list.erase(del)
+		del.free()
 
 func shrink_link(object):
 	if object.scale == Vector2(0.01, 0.01):
@@ -155,9 +157,10 @@ func shrink_link(object):
 
 
 func _on_area_entered(area):
-	if link_list.size() > 1:
-		if ( (area != link_list[-1]) and (area != link_list[-2]) and (area in link_list) ): 
-			queue_delete_portals()
-			camera.switch_target(player)
-			worming = false
-			visible = false
+	if worming:
+		if link_list.size() > 1:
+			if ( (area != link_list[-1]) and (area != link_list[-2]) and (area in link_list) ): 
+				queue_delete_portals()
+				camera.switch_target(player)
+				worming = false
+				visible = false

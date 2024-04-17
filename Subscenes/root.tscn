@@ -549,10 +549,12 @@ script = SubResource("GDScript_swiby")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PortalController"]
 shape = SubResource("CircleShape2D_xgd5i")
 
-[node name="Camera_tracker" type="Node2D" parent="."]
+[node name="Camera_tracker" type="Node2D" parent="." node_paths=PackedStringArray("Camera", "target")]
 unique_name_in_owner = true
 position = Vector2(502, 519)
 script = ExtResource("7_ihih4")
+Camera = NodePath(".")
+target = NodePath("../Player")
 
 [node name="Camera2D" type="Camera2D" parent="Camera_tracker"]
 unique_name_in_owner = true
@@ -569,8 +571,10 @@ editor_draw_drag_margin = true
 [node name="BasicEnemy" parent="." instance=ExtResource("8_jyfs4")]
 position = Vector2(1226, 510)
 
-[node name="Player" parent="." instance=ExtResource("9_qyrkm")]
+[node name="Player" parent="." node_paths=PackedStringArray("portal_controller", "camera") instance=ExtResource("9_qyrkm")]
 unique_name_in_owner = true
 position = Vector2(867, 502)
+portal_controller = NodePath("../PortalController")
+camera = NodePath("../Camera_tracker")
 
 [connection signal="area_entered" from="PortalController" to="PortalController" method="_on_area_entered"]

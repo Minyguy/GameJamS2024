@@ -63,10 +63,12 @@ layout_mode = 2
 size_flags_horizontal = 8
 
 [node name="Button2" type="Button" parent="MenuContainer/VBoxContainer/HBoxContainer2"]
+visible = false
 layout_mode = 2
 text = "Settings"
 
 [node name="Button" type="Button" parent="MenuContainer/VBoxContainer/HBoxContainer2"]
+visible = false
 layout_mode = 2
 text = "Quit?"
 
@@ -87,6 +89,7 @@ custom_minimum_size = Vector2(150, 40)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 6
+size_flags_stretch_ratio = 0.34
 mouse_default_cursor_shape = 0
 text = "WORMHOLE!"
 placeholder_text = "WORMHOLE!"
@@ -101,39 +104,35 @@ middle_mouse_paste_enabled = false
 
 [node name="VBoxContainer_Buttons" type="VBoxContainer" parent="MenuContainer/VBoxContainer/HBoxContainer/Margin_Buttons/VBoxContainer"]
 layout_mode = 2
-size_flags_vertical = 6
+size_flags_vertical = 3
 
 [node name="Button" type="Button" parent="MenuContainer/VBoxContainer/HBoxContainer/Margin_Buttons/VBoxContainer/VBoxContainer_Buttons"]
 layout_mode = 2
 text = "Play :)"
 
-[node name="Button2" type="Button" parent="MenuContainer/VBoxContainer/HBoxContainer/Margin_Buttons/VBoxContainer/VBoxContainer_Buttons"]
+[node name="ColorRect" type="ColorRect" parent="MenuContainer/VBoxContainer/HBoxContainer/Margin_Buttons/VBoxContainer/VBoxContainer_Buttons"]
 layout_mode = 2
-text = "Play :)"
+size_flags_vertical = 3
+color = Color(0.215686, 0.47451, 0.709804, 1)
 
-[node name="Button3" type="Button" parent="MenuContainer/VBoxContainer/HBoxContainer/Margin_Buttons/VBoxContainer/VBoxContainer_Buttons"]
-layout_mode = 2
-text = "Play :)"
+[node name="MarginContainer" type="MarginContainer" parent="MenuContainer/VBoxContainer/HBoxContainer/Margin_Buttons/VBoxContainer/VBoxContainer_Buttons/ColorRect"]
+layout_mode = 0
+offset_right = 388.0
+offset_bottom = 273.0
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
 
-[node name="Button4" type="Button" parent="MenuContainer/VBoxContainer/HBoxContainer/Margin_Buttons/VBoxContainer/VBoxContainer_Buttons"]
+[node name="RichTextLabel" type="RichTextLabel" parent="MenuContainer/VBoxContainer/HBoxContainer/Margin_Buttons/VBoxContainer/VBoxContainer_Buttons/ColorRect/MarginContainer"]
+clip_contents = false
 layout_mode = 2
-text = "Play :)"
-
-[node name="Button5" type="Button" parent="MenuContainer/VBoxContainer/HBoxContainer/Margin_Buttons/VBoxContainer/VBoxContainer_Buttons"]
-layout_mode = 2
-text = "Play :)"
-
-[node name="Button6" type="Button" parent="MenuContainer/VBoxContainer/HBoxContainer/Margin_Buttons/VBoxContainer/VBoxContainer_Buttons"]
-layout_mode = 2
-text = "Play :)"
-
-[node name="Button7" type="Button" parent="MenuContainer/VBoxContainer/HBoxContainer/Margin_Buttons/VBoxContainer/VBoxContainer_Buttons"]
-layout_mode = 2
-text = "Play :)"
-
-[node name="Button8" type="Button" parent="MenuContainer/VBoxContainer/HBoxContainer/Margin_Buttons/VBoxContainer/VBoxContainer_Buttons"]
-layout_mode = 2
-text = "Play :)"
+size_flags_vertical = 3
+text = "Controls:
+WASD = Move
+Space = Jump
+Esc = Main menu
+F = Respawn/Reset Player
+Left Click = Shoot white box
+Right Click in ground = Make Portal"
 
 [node name="Margin_Picture" type="MarginContainer" parent="MenuContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2

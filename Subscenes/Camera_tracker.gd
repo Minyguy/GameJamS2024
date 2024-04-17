@@ -1,9 +1,9 @@
 extends Node2D
-@onready var Camera = find_child("Camera2D")
-@onready var target = %Player
+@export var Camera : Node2D
+@export var target : Node2D
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
+	pass
 
 func switch_target(new_target):
 	target = new_target
