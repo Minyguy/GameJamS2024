@@ -32,4 +32,3 @@ func _on_button_1_pressed():
 	game = level_1.instantiate()
 	add_child(game)
 	%level_select.visible = false
-	pass # Replace with function body.

@@ -157,10 +157,9 @@ func shrink_away_portals():
 
 func shrink_link(object):
 	if (abs(object.scale.x) <= 0.1) and (abs(object.scale.y) <= 0.1):
-		
 		return true
 	else:
-		object.scale = object.scale.move_toward(Vector2(0, 0), 0.04)
+		object.scale = object.scale.move_toward(Vector2(0, 0), 0.06)
 		return false
 
 

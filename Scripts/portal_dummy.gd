@@ -9,7 +9,7 @@ signal entity_teleport(object)
 var approved_types = []
 var teleporting = false
 
-const teleport_time := 0.02
+const teleport_time : int = 1 #Frames
 
 var passenger : Node2D
 var passenger_direction : bool
@@ -61,7 +61,9 @@ func _physics_process(delta):
 		scale = scale.move_toward(Vector2(1, 1), 3*delta)
 	
 	if(has_passenger):
-		passenger_timer += delta
+		passenger_timer += 1
+		print(passenger_timer)
+		print(delta)
 		if passenger_timer > teleport_time:
 			do_teleport()
 			passenger = null
@@ -91,6 +93,8 @@ func receive_passenger(_object, _is_left):
 	passenger_direction = _is_left
 	
 	passenger_timer = 0
+	if not passenger_direction:
+		passenger_timer = 1
 	has_passenger = true
 	teleporting = true
 	passenger.global_position = global_position
@@ -126,6 +130,7 @@ func get_next_portal(is_left):
 
 func summon_passenger():
 	passenger.position -= global_position.direction_to(get_next_portal(not passenger_direction).global_position)*8
+	passenger.velocity = -global_position.direction_to(get_next_portal(not passenger_direction).global_position)*400
 	passenger.stop_teleport()
 	passenger = null
 	
