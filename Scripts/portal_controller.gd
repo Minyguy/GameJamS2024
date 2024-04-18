@@ -52,7 +52,7 @@ func _physics_process(delta):
 			position += direction*speed*delta
 			
 			var map_coords = ground.local_to_map(ground.to_local(global_position))
-			if(ground.get_cell_tile_data(0, map_coords) == null):
+			if(ground.get_cell_tile_data("GroundStuff", map_coords) == null):
 				moving = false
 				worming = false
 				
