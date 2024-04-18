@@ -84,8 +84,6 @@ func do_teleport(_object, _new, _is_left):
 			if typeof(get_next_portal(_is_left)) == 4:
 				summon_passenger()
 			
-			
-			
 			else:
 				print(scale)
 				print("Sent "+ passenger.name)

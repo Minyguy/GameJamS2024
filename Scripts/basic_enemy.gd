@@ -36,27 +36,8 @@ func _physics_process(delta):
 			post_tp_grow = false
 	
 	if(teleporting):
-		# Havent entered toob yet
-		if(visible):
-			if scale == Vector2(sign(scale.x)*0.45,sign(scale.y)*0.45):
-				visible = false
-				pass
-			
-			else:
-				position = position.move_toward(portal_position, 6)
-				scale = scale.move_toward(Vector2(sign(scale.x)*0.45, sign(scale.y)*0.45), 0.15)
-		
-		# Has entered toob, send signal to portal
-		else:
-			if not in_portal:
-				if(is_left_in_portal):
-					print("Starting tp with direction left")
-				else:
-					print("Starting tp with direction right")
-				portal.do_teleport(self, true, is_left_in_portal)
-				in_portal = true
-	
-	
+		process_teleporting()
+
 	else:
 		# If on-floor
 		if is_on_floor():
@@ -109,6 +90,10 @@ func _physics_process(delta):
 			DIRECTION_WALK *= -1
 			scale.x *= -1
 
+
+
+
+
 func start_teleport(_portal, _position, is_left_direction):
 	if(is_left_direction):
 		print("Starting tp with direction left")
@@ -132,3 +117,24 @@ func stop_teleport():
 
 func get_tp_cooldown():
 	return tp_cooldown
+
+func process_teleporting():
+	# Havent entered toob yet
+	if(visible):
+		if scale == Vector2(sign(scale.x)*0.45,sign(scale.y)*0.45):
+			visible = false
+			pass
+		
+		else:
+			position = position.move_toward(portal_position, 6)
+			scale = scale.move_toward(Vector2(sign(scale.x)*0.45, sign(scale.y)*0.45), 0.15)
+	
+	# Has entered toob, send signal to portal
+	else:
+		if not in_portal:
+			if(is_left_in_portal):
+				print("Starting tp with direction left")
+			else:
+				print("Starting tp with direction right")
+			portal.do_teleport(self, true, is_left_in_portal)
+			in_portal = true
