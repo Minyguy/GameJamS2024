@@ -11,3 +11,9 @@ func _ready():
 func _process(delta):
 	position = player.position.direction_to(get_global_mouse_position())*radius
 	pass
+
+
+func _on_area_2d_area_entered(area):
+	if area.has_method("do_teleport"):
+		if area.subtype == "Door":
+			pass
