@@ -273,6 +273,8 @@ radius = 6.08276
 z_index = 55
 texture_filter = 1
 script = ExtResource("1_2fww8")
+SPEED = null
+JUMP_VELOCITY = null
 target = NodePath("Target")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

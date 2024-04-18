@@ -22,12 +22,7 @@ var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 func _physics_process(delta):
 	var flip_direction = false
 	
-	if (tp_cooldown > 0):
-		
-		tp_cooldown -= delta
-		if tp_cooldown <= 0:
-			tp_cooldown = 0
-			print("Enemy can teleport again")
+	
 	
 	if post_tp_grow:
 		scale.x = move_toward(scale.x, sign(scale.x), 0.1)
@@ -37,8 +32,16 @@ func _physics_process(delta):
 	
 	if(teleporting):
 		process_teleporting()
+	
+	
 
 	else:
+		if (tp_cooldown > 0):
+			tp_cooldown -= delta
+			if tp_cooldown <= 0:
+				tp_cooldown = 0
+				print("Enemy can teleport again")
+		
 		# If on-floor
 		if is_on_floor():
 			_animated_sprite.play("run")
@@ -95,6 +98,8 @@ func _physics_process(delta):
 
 
 func start_teleport(_portal, _position, is_left_direction):
+	if not _portal.portal_completed:
+		return false
 	if(is_left_direction):
 		print("Starting tp with direction left")
 	else:
@@ -105,7 +110,7 @@ func start_teleport(_portal, _position, is_left_direction):
 	tp_cooldown = 3
 	is_left_in_portal = is_left_direction
 	physics_enabled = false
-	
+	return true
 
 func stop_teleport():
 	teleporting = false
@@ -136,5 +141,5 @@ func process_teleporting():
 				print("Starting tp with direction left")
 			else:
 				print("Starting tp with direction right")
-			portal.do_teleport(self, true, is_left_in_portal)
+			portal.receive_passenger(self, is_left_in_portal)
 			in_portal = true

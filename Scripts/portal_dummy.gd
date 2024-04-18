@@ -8,10 +8,17 @@ var portal_enabled : bool
 signal entity_teleport(object)
 var approved_types = []
 var teleporting = false
-var passenger
-var passenger_direction
+
+const teleport_time := 0.02
+
+var passenger : Node2D
+var passenger_direction : bool
+var passenger_timer : float
+var has_passenger : bool
+
 var left_right
-var cooldown = 0
+var cooldown := 0
+var portal_completed : bool
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -36,6 +43,10 @@ func set_subtype(new_subtype):
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
+	pass
+	
+
+func _physics_process(delta):
 	match subtype:
 		"Door":
 			_animated_sprite.play("portal_door")
@@ -46,16 +57,21 @@ func _process(delta):
 		_:
 			print("PROBLEM WITH PORTAL SUBTYPE")
 	
-	if(teleporting):
-		do_teleport("none", false, passenger_direction)
-	else:
-		scale = scale.move_toward(Vector2(1, 1),0.003)
+	if(not teleporting):
+		scale = scale.move_toward(Vector2(1, 1), 3*delta)
+	
+	if(has_passenger):
+		passenger_timer += delta
+		if passenger_timer > teleport_time:
+			do_teleport()
+			passenger = null
+			has_passenger = false
+			passenger_timer = 0
 	
 	if cooldown > 0:
 		cooldown -= delta
 		if cooldown < 0:
 			cooldown = 0
-
 
 func _on_body_shape_entered(body_rid, body, body_shape_index, local_shape_index):
 	if(cooldown <= 0):
@@ -70,35 +86,37 @@ func _on_body_shape_entered(body_rid, body, body_shape_index, local_shape_index)
 							passenger_direction = left_right
 							cooldown = 2
 
+func receive_passenger(_object, _is_left):
+	passenger = _object
+	passenger_direction = _is_left
+	
+	passenger_timer = 0
+	has_passenger = true
+	teleporting = true
+	passenger.global_position = global_position
+	scale = Vector2(1.3,1.3)
 
-func do_teleport(_object, _new, _is_left):
-	if(_object != null):
-		passenger_direction = _is_left
-		if(_is_left):
+func do_teleport():
+	
+	if(passenger != null and (portal_completed or subtype == "Link")):
+		if(passenger_direction):
 			print("Sending passenger in direction left")
 		else:
 			print("Sending passenger in direction right")
-		if(scale == Vector2(1.3,1.3) and passenger != null):
 			
-			# 4 is the number for string 
-			if typeof(get_next_portal(_is_left)) == 4:
-				summon_passenger()
-			
-			else:
-				print(scale)
-				print("Sent "+ passenger.name)
-				print("to " + get_next_portal(_is_left).name)
-				get_next_portal(_is_left).do_teleport(passenger, true, _is_left)
-				passenger = null
-				
-				scale = scale.move_toward(Vector2(1, 1),0.01)
-			teleporting = false
+		# 4 is the number for string 
+		if typeof(get_next_portal(passenger_direction)) == 4:
+			summon_passenger()
 		
-		if(_new):
-			teleporting = true
-			_object.global_position = global_position
-			passenger = _object
-			scale = Vector2(1.3,1.3)
+		else:
+			get_next_portal(passenger_direction).receive_passenger(passenger, passenger_direction)
+		
+		scale = scale.move_toward(Vector2(1, 1),0.03)
+		teleporting = false
+		passenger = null
+		passenger_timer = 0
+		has_passenger = false
+
 
 func get_next_portal(is_left):
 	if is_left:
@@ -107,7 +125,7 @@ func get_next_portal(is_left):
 		return right_portal
 
 func summon_passenger():
+	passenger.position -= global_position.direction_to(get_next_portal(not passenger_direction).global_position)*8
 	passenger.stop_teleport()
-	passenger.position -= global_position.direction_to(get_next_portal(not passenger_direction).global_position)*5
 	passenger = null
 	

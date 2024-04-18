@@ -3,6 +3,7 @@ extends Node2D
 @export var target : Node2D
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	target = get_parent().find_child("Player")
 	pass
 
 func switch_target(new_target):

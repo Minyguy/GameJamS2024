@@ -1,24 +1,28 @@
-[gd_scene load_steps=6 format=3 uid="uid://qajvviynouia"]
+[gd_scene load_steps=21 format=3 uid="uid://qajvviynouia"]
 
-[ext_resource type="Script" path="res://Subscenes/main.gd" id="1_3arf7"]
+[ext_resource type="Script" path="res://Scripts/main.gd" id="1_3arf7"]
 [ext_resource type="Texture2D" uid="uid://tceptm5ckihg" path="res://Sprites/Player/Jump (32x32).png" id="2_2gkmg"]
 [ext_resource type="Texture2D" uid="uid://y85x7j7r16m5" path="res://Sprites/Terrain/Blue.png" id="3_owyf0"]
-
-[sub_resource type="GDScript" id="GDScript_7otyp"]
-script/source = "extends TextureRect
-const type = \"Ground\"
-
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass # Replace with function body.
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
-"
+[ext_resource type="Texture2D" uid="uid://boht2idorgi0t" path="res://Sprites/buttons/01.png" id="4_rsgxs"]
+[ext_resource type="Texture2D" uid="uid://lmvroqj7t16h" path="res://Sprites/buttons/02.png" id="5_gygmn"]
+[ext_resource type="Texture2D" uid="uid://co7hgi2lmkop1" path="res://Sprites/buttons/03.png" id="6_qg5eg"]
+[ext_resource type="Texture2D" uid="uid://dmdarx7hrethn" path="res://Sprites/buttons/04.png" id="7_5reos"]
+[ext_resource type="Texture2D" uid="uid://634hmuarcmcx" path="res://Sprites/buttons/05.png" id="8_yx7yu"]
+[ext_resource type="Texture2D" uid="uid://bkjvvkc7amrxn" path="res://Sprites/buttons/06.png" id="9_yo658"]
+[ext_resource type="Texture2D" uid="uid://wdpdvqie2j56" path="res://Sprites/buttons/07.png" id="10_7h7s3"]
+[ext_resource type="Texture2D" uid="uid://b074jivmyqls7" path="res://Sprites/buttons/08.png" id="11_7bacm"]
+[ext_resource type="Texture2D" uid="uid://cc4tyq1pjrj3g" path="res://Sprites/buttons/09.png" id="12_v4lep"]
+[ext_resource type="Texture2D" uid="uid://cjk85x4lcwv8c" path="res://Sprites/buttons/10.png" id="13_57l84"]
+[ext_resource type="Texture2D" uid="uid://cs11xdohhcxcy" path="res://Sprites/buttons/11.png" id="14_4f520"]
+[ext_resource type="Texture2D" uid="uid://c43g5tldq25xt" path="res://Sprites/buttons/12.png" id="15_l1bbs"]
+[ext_resource type="Texture2D" uid="uid://ba2ngginp7e1r" path="res://Sprites/buttons/13.png" id="16_47p32"]
+[ext_resource type="Texture2D" uid="uid://cmng3fvkpfwq2" path="res://Sprites/buttons/14.png" id="17_d33hl"]
+[ext_resource type="Texture2D" uid="uid://ce5ux20wmmgvy" path="res://Sprites/buttons/15.png" id="18_y622s"]
 
 [sub_resource type="Theme" id="Theme_iwq6d"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_arfos"]
+size = Vector2(200, 100)
 
 [node name="Control" type="Control"]
 layout_mode = 3
@@ -29,7 +33,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_3arf7")
 
-[node name="TextureRect" type="TextureRect" parent="."]
+[node name="Background" type="TextureRect" parent="."]
 z_index = -5
 texture_filter = 1
 layout_mode = 0
@@ -39,7 +43,6 @@ offset_right = 5468.0
 offset_bottom = 2842.0
 texture = ExtResource("3_owyf0")
 stretch_mode = 1
-script = SubResource("GDScript_7otyp")
 
 [node name="MenuContainer" type="MarginContainer" parent="."]
 unique_name_in_owner = true
@@ -147,4 +150,197 @@ expand_mode = 3
 stretch_mode = 4
 flip_h = true
 
+[node name="level_select" type="Control" parent="."]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="level_select"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 50
+theme_override_constants/margin_top = 50
+theme_override_constants/margin_right = 50
+theme_override_constants/margin_bottom = 50
+
+[node name="Control" type="Control" parent="level_select/MarginContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="level_select/MarginContainer/Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="level_select/MarginContainer/Control/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+texture = SubResource("PlaceholderTexture2D_arfos")
+
+[node name="Label" type="Label" parent="level_select/MarginContainer/Control/VBoxContainer/TextureRect"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -52.0
+offset_top = -11.0
+offset_right = 60.0
+offset_bottom = 12.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "LEVEL SELECT"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="level_select/MarginContainer/Control/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+alignment = 1
+
+[node name="Button1" type="Button" parent="level_select/MarginContainer/Control/VBoxContainer/HBoxContainer"]
+texture_filter = 1
+layout_mode = 2
+size_flags_horizontal = 3
+icon = ExtResource("4_rsgxs")
+icon_alignment = 1
+expand_icon = true
+
+[node name="Button2" type="Button" parent="level_select/MarginContainer/Control/VBoxContainer/HBoxContainer"]
+texture_filter = 1
+layout_mode = 2
+size_flags_horizontal = 3
+icon = ExtResource("5_gygmn")
+icon_alignment = 1
+expand_icon = true
+
+[node name="Button3" type="Button" parent="level_select/MarginContainer/Control/VBoxContainer/HBoxContainer"]
+texture_filter = 1
+layout_mode = 2
+size_flags_horizontal = 3
+icon = ExtResource("6_qg5eg")
+icon_alignment = 1
+expand_icon = true
+
+[node name="Button4" type="Button" parent="level_select/MarginContainer/Control/VBoxContainer/HBoxContainer"]
+texture_filter = 1
+layout_mode = 2
+size_flags_horizontal = 3
+icon = ExtResource("7_5reos")
+icon_alignment = 1
+expand_icon = true
+
+[node name="Button5" type="Button" parent="level_select/MarginContainer/Control/VBoxContainer/HBoxContainer"]
+texture_filter = 1
+layout_mode = 2
+size_flags_horizontal = 3
+icon = ExtResource("8_yx7yu")
+icon_alignment = 1
+expand_icon = true
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="level_select/MarginContainer/Control/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+alignment = 1
+
+[node name="Button6" type="Button" parent="level_select/MarginContainer/Control/VBoxContainer/HBoxContainer2"]
+texture_filter = 1
+layout_mode = 2
+size_flags_horizontal = 3
+icon = ExtResource("9_yo658")
+icon_alignment = 1
+expand_icon = true
+
+[node name="Button7" type="Button" parent="level_select/MarginContainer/Control/VBoxContainer/HBoxContainer2"]
+texture_filter = 1
+layout_mode = 2
+size_flags_horizontal = 3
+icon = ExtResource("10_7h7s3")
+icon_alignment = 1
+expand_icon = true
+
+[node name="Button8" type="Button" parent="level_select/MarginContainer/Control/VBoxContainer/HBoxContainer2"]
+texture_filter = 1
+layout_mode = 2
+size_flags_horizontal = 3
+icon = ExtResource("11_7bacm")
+icon_alignment = 1
+expand_icon = true
+
+[node name="Button9" type="Button" parent="level_select/MarginContainer/Control/VBoxContainer/HBoxContainer2"]
+texture_filter = 1
+layout_mode = 2
+size_flags_horizontal = 3
+icon = ExtResource("12_v4lep")
+icon_alignment = 1
+expand_icon = true
+
+[node name="Button10" type="Button" parent="level_select/MarginContainer/Control/VBoxContainer/HBoxContainer2"]
+texture_filter = 1
+layout_mode = 2
+size_flags_horizontal = 3
+icon = ExtResource("13_57l84")
+icon_alignment = 1
+expand_icon = true
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="level_select/MarginContainer/Control/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+alignment = 1
+
+[node name="Button11" type="Button" parent="level_select/MarginContainer/Control/VBoxContainer/HBoxContainer3"]
+texture_filter = 1
+layout_mode = 2
+size_flags_horizontal = 3
+icon = ExtResource("14_4f520")
+icon_alignment = 1
+expand_icon = true
+
+[node name="Button12" type="Button" parent="level_select/MarginContainer/Control/VBoxContainer/HBoxContainer3"]
+texture_filter = 1
+layout_mode = 2
+size_flags_horizontal = 3
+icon = ExtResource("15_l1bbs")
+icon_alignment = 1
+expand_icon = true
+
+[node name="Button13" type="Button" parent="level_select/MarginContainer/Control/VBoxContainer/HBoxContainer3"]
+texture_filter = 1
+layout_mode = 2
+size_flags_horizontal = 3
+icon = ExtResource("16_47p32")
+icon_alignment = 1
+expand_icon = true
+
+[node name="Button14" type="Button" parent="level_select/MarginContainer/Control/VBoxContainer/HBoxContainer3"]
+texture_filter = 1
+layout_mode = 2
+size_flags_horizontal = 3
+icon = ExtResource("17_d33hl")
+icon_alignment = 1
+expand_icon = true
+
+[node name="Button15" type="Button" parent="level_select/MarginContainer/Control/VBoxContainer/HBoxContainer3"]
+texture_filter = 1
+layout_mode = 2
+size_flags_horizontal = 3
+icon = ExtResource("18_y622s")
+icon_alignment = 1
+expand_icon = true
+
 [connection signal="pressed" from="MenuContainer/VBoxContainer/HBoxContainer/Margin_Buttons/VBoxContainer/VBoxContainer_Buttons/Button" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="level_select/MarginContainer/Control/VBoxContainer/HBoxContainer/Button1" to="." method="_on_button_1_pressed"]

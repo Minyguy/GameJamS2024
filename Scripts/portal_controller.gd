@@ -16,6 +16,7 @@ var prev_portal : Area2D
 var link_counter = 0
 var link_list = []
 var shrink_away_list = []
+var door_1 : Area2D
 
 func start_worming(new_position):
 	queue_delete_portals()
@@ -100,7 +101,7 @@ func summon_portal(thing: int):
 		1:
 			
 			var portal_instance = PortalDoor.instantiate()
-			
+			door_1 = portal_instance
 			portal_instance.set_subtype("Door")
 			portal_instance.global_position = global_position
 			portal_instance.rotation = direction.angle()
@@ -114,6 +115,7 @@ func summon_portal(thing: int):
 		
 		# Final Door
 		2:
+			
 			var portal_instance = PortalDoor.instantiate()
 			
 			portal_instance.set_subtype("Door")
@@ -126,6 +128,8 @@ func summon_portal(thing: int):
 			prev_portal.right_portal = portal_instance
 			portal_instance.left_right = true
 			add_sibling(portal_instance)
+			door_1.portal_completed = true
+			portal_instance.portal_completed = true
 			return portal_instance
 		_:
 			print("SOMETHING IS WRONG")
@@ -142,16 +146,21 @@ func shrink_away_portals():
 			delete_link_list.append(link)
 		pass
 	
+	
+	if(delete_link_list.size() > 0):
+		print("DELETING")
+		print(delete_link_list.size())
+		print("PORTALS")
 	for del in delete_link_list:
 		shrink_away_list.erase(del)
-		del.free()
+		del.queue_free()
 
 func shrink_link(object):
-	if object.scale == Vector2(0.01, 0.01):
-		object.queue_free()
+	if (abs(object.scale.x) <= 0.1) and (abs(object.scale.y) <= 0.1):
+		
 		return true
 	else:
-		object.scale = object.scale.move_toward(Vector2(0.01, 0.01), 0.04)
+		object.scale = object.scale.move_toward(Vector2(0, 0), 0.04)
 		return false
 
 
