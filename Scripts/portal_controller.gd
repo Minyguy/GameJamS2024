@@ -40,7 +40,7 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta):
 	
-	shrink_away_portals()
+	shrink_away_portals(delta)
 	rotation -= 2*delta
 	if rotation < 0:
 		rotation += 2*PI
@@ -52,7 +52,7 @@ func _physics_process(delta):
 			position += direction*speed*delta
 			
 			var map_coords = ground.local_to_map(ground.to_local(global_position))
-			if(ground.get_cell_tile_data("GroundStuff", map_coords) == null):
+			if(ground.get_terrain_set_at_global(global_position) == -1):
 				moving = false
 				worming = false
 				
@@ -61,6 +61,13 @@ func _physics_process(delta):
 				visible = false
 				player.stop_worming()
 				camera.switch_target(player)
+				
+			elif ground.get_terrain_set_at_global(global_position) == 1:
+				queue_delete_portals()
+				camera.switch_target(player)
+				player.stop_worming()
+				worming = false
+				visible = false
 			
 			elif not link_counter:
 				link_list.append(summon_portal(0))
@@ -138,11 +145,11 @@ func queue_delete_portals():
 	shrink_away_list += link_list.duplicate()
 	link_list = []
 
-func shrink_away_portals():
+func shrink_away_portals(delta):
 	var delete_link_list = []
 	for link in (shrink_away_list):
 		
-		if(shrink_link(link)):
+		if(shrink_link(link, delta)):
 			delete_link_list.append(link)
 		pass
 	
@@ -155,11 +162,11 @@ func shrink_away_portals():
 		shrink_away_list.erase(del)
 		del.queue_free()
 
-func shrink_link(object):
+func shrink_link(object, delta):
 	if (abs(object.scale.x) <= 0.1) and (abs(object.scale.y) <= 0.1):
 		return true
 	else:
-		object.scale = object.scale.move_toward(Vector2(0, 0), 0.06)
+		object.scale = object.scale.move_toward(Vector2(0, 0), delta*7)
 		return false
 
 

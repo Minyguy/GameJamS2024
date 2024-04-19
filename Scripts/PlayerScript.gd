@@ -30,6 +30,7 @@ var portal : Area2D
 var is_left_in_portal : bool
 var in_portal := false
 var post_tp_grow := false
+var spawnpoint : Vector2
 
 # Variables related to Creating portals
 var worm_time := false
@@ -42,19 +43,21 @@ var _animated_sprite : AnimatedSprite2D
 var shape : CollisionShape2D
 
 func start_worming():
-	worm_time = true
+	
 	var worm_pos = global_position
-	while ground.get_cell_tile_data(0, ground.local_to_map(ground.to_local(worm_pos))) == null:
+	while ground.get_terrain_set_at_global(worm_pos) == -1:
 		worm_pos += worm_pos.direction_to(target.global_position)
-	portal_controller.start_worming(worm_pos)
-	camera.switch_target(portal_controller)
+	if ground.get_terrain_set_at_global(worm_pos) == 0:
+		portal_controller.start_worming(worm_pos)
+		camera.switch_target(portal_controller)
+		worm_time = true
 
 func stop_worming():
 	worm_time = false
 
 func shoot_bullet(speed, radius) -> int:
 	var map_coords = ground.local_to_map(ground.to_local(target.global_position))
-	if (ground.get_cell_tile_data(0, Vector2(map_coords.x, map_coords.y)) == null):
+	if ground.get_terrain_set_at_global(target.global_position) == -1:
 		var bulletInst = bullet_path.instantiate()
 		
 		add_sibling(bulletInst)
@@ -67,7 +70,8 @@ func shoot_bullet(speed, radius) -> int:
 	
 
 
-func _ready() -> void:
+func _ready():
+	spawnpoint = global_position
 	ground = get_parent().find_child("TileMap")
 	target = $Target
 	bullet_path = preload("res://Subscenes/Bullet.tscn")
@@ -85,9 +89,7 @@ func _physics_process(delta):
 	# Get the input direction and handle the movement/deceleration.
 	# As good practice, you should replace UI actions with custom gameplay actions.
 	if position.y >= 3000:
-		position = Vector2(150, 500)
-		velocity.y = 0
-		velocity.x = 0
+		get_parent().get_parent().reset_level()
 	
 	if worm_time:
 		pass
@@ -98,7 +100,7 @@ func _physics_process(delta):
 	elif (alive):
 		if not curr_shoot_cd:
 			if Input.is_action_pressed("shoot"):
-				shoot_bullet(300, 40)
+				
 				curr_shoot_cd = base_shoot_cd
 				
 			
@@ -109,9 +111,8 @@ func _physics_process(delta):
 			
 			
 			else:
-				var map_coords = ground.local_to_map(ground.to_local(target.global_position))
 				if not worm_time:
-					if (ground.get_cell_tile_data(0, map_coords) != null):
+					if (ground.get_terrain_set_at_global(target.global_position) == 0):
 						start_worming()
 	
 		if Input.is_action_just_pressed("jump"):
@@ -174,6 +175,9 @@ func _physics_process(delta):
 				shape.disabled = true
 				velocity = Vector2(0,0)
 	
+	if not alive and not dying:
+		get_parent().get_parent().reset_level()
+	
 	if(physics_enabled):
 		move_and_slide()
 
@@ -191,7 +195,7 @@ func _physics_process(delta):
 		reset_player()
 
 	if Input.is_action_just_pressed("menu"):
-		get_parent().get_parent()._back_to_menu()
+		get_parent().get_parent()._back_to_menu(false)
 
 func start_teleport(_portal, _position, is_left_direction):
 	if(is_left_direction):
@@ -226,7 +230,7 @@ func reset_player():
 	worm_time = false
 	visible = true
 	physics_enabled = true
-	position = get_global_mouse_position()
+	position = spawnpoint
 	camera.switch_target(self)
 	shape.disabled = false
 	scale = Vector2(1,1)

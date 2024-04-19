@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://cap8hq1acst7c"]
+
+[ext_resource type="Texture2D" uid="uid://crffi4e4wu3l" path="res://Sprites/Terrain/ugly_flag.png" id="1_syxlw"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rjr78"]
+size = Vector2(25, 25)
+
+[node name="Goal" type="Area2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("1_syxlw")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(2.5, 2.5)
+shape = SubResource("RectangleShape2D_rjr78")

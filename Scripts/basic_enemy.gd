@@ -53,12 +53,12 @@ func _physics_process(delta):
 				velocity.x = move_toward(velocity.x, 0, SPEED)
 			
 			# Turn Around or jump when hole
-			var map_coords = ground.local_to_map(ground.to_local(Vector2(position.x+DIRECTION_WALK*20, position.y)))
-			if (ground.get_cell_tile_data(0, Vector2(map_coords.x, map_coords.y)) != null):
+			if ground.get_terrain_set_at_global(Vector2(global_position.x+DIRECTION_WALK*20, global_position.y)) != -1:
 				flip_direction = true
-			elif (ground.get_cell_tile_data(0, Vector2(map_coords.x, map_coords.y+1)) == null):
-				if (ground.get_cell_tile_data(0, Vector2(map_coords.x+DIRECTION_WALK*4, map_coords.y+1)) != null):
-					if (ground.get_cell_tile_data(0, Vector2(map_coords.x+DIRECTION_WALK*4, map_coords.y)) == null):
+			
+			elif ground.get_terrain_set_at_global(Vector2(global_position.x+DIRECTION_WALK*20, global_position.y+32)) == -1:
+				if (ground.get_terrain_set_at_global(Vector2(global_position.x+DIRECTION_WALK*4*32, global_position.y+32))) != null:
+					if (ground.get_terrain_set_at_global(Vector2(global_position.x+DIRECTION_WALK*4*32, global_position.y)) == null):
 						velocity.y -= 405
 						
 					else:
@@ -85,7 +85,7 @@ func _physics_process(delta):
 			var collisionStuff := get_slide_collision(index)
 			var body := collisionStuff.get_collider()
 			if (body.TYPE != null):
-				if (body.TYPE == "Bullet") or (body.name == "Bullet"):
+				if (body.TYPE == "Bullet") or (body.name == "Bullet") or (body.TYPE == "Enemy"):
 					if (body.global_position.x - global_position.x)*DIRECTION_WALK > 0:
 						flip_direction = true
 		
