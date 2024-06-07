@@ -5,6 +5,7 @@ extends Control
 @onready var level_3 = preload("res://Subscenes/level_3.tscn")
 @onready var level_4 = preload("res://Subscenes/level_4.tscn")
 @onready var level_5 = preload("res://Subscenes/level_5.tscn")
+@onready var level_6 = preload("res://Subscenes/level_6.tscn")
 @onready var in_menu = true
 @onready var in_select = false
 
@@ -86,5 +87,13 @@ func _on_button_5_pressed():
 	game = level_5.instantiate()
 	level = level_5
 	level_button = %Button5
+	add_child(game)
+	%level_select.visible = false
+
+
+func _on_button_6_pressed():
+	game = level_6.instantiate()
+	level = level_6
+	level_button = %Button6
 	add_child(game)
 	%level_select.visible = false

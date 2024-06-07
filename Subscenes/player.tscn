@@ -1,4 +1,4 @@
-[gd_scene load_steps=45 format=3 uid="uid://cqm6qwo4sq81"]
+[gd_scene load_steps=46 format=3 uid="uid://cqm6qwo4sq81"]
 
 [ext_resource type="Script" path="res://Scripts/PlayerScript.gd" id="1_2fww8"]
 [ext_resource type="Texture2D" uid="uid://b4c7482me8fuw" path="res://Sprites/Player/Idle (32x32).png" id="2_2wh3x"]
@@ -269,6 +269,9 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_4qrov"]
 radius = 6.08276
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ardw5"]
+size = Vector2(38, 46)
+
 [node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("target")]
 z_index = 55
 texture_filter = 1
@@ -288,9 +291,6 @@ material = SubResource("CanvasItemMaterial_ehtw0")
 position = Vector2(0, -6)
 scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_oj7yr")
-animation = &"hit"
-frame = 2
-frame_progress = 0.24797
 
 [node name="Target" type="Marker2D" parent="."]
 position = Vector2(50, -2)
@@ -307,5 +307,12 @@ texture = ExtResource("6_r3vo1")
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="Target/Area2D"]
 shape = SubResource("CircleShape2D_4qrov")
 
+[node name="CollectibleArea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CollectibleArea"]
+position = Vector2(0, 2)
+shape = SubResource("RectangleShape2D_ardw5")
+
 [connection signal="area_entered" from="Target/Area2D" to="Target" method="_on_area_2d_area_entered"]
 [connection signal="area_exited" from="Target/Area2D" to="Target" method="_on_area_2d_area_exited"]
+[connection signal="area_entered" from="CollectibleArea" to="." method="_on_collectible_area_area_entered"]

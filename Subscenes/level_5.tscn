@@ -927,10 +927,10 @@ script = ExtResource("1_lygjm")
 [node name="TextureRect" type="TextureRect" parent="."]
 z_index = -5
 texture_filter = 1
-offset_left = -268.0
-offset_top = -141.0
-offset_right = 5468.0
-offset_bottom = 2842.0
+offset_left = -511.0
+offset_top = -580.0
+offset_right = 5617.0
+offset_bottom = 2974.0
 texture = ExtResource("2_2sflk")
 stretch_mode = 1
 script = SubResource("GDScript_fg7mj")
@@ -954,7 +954,7 @@ target = NodePath("../Player")
 
 [node name="Player" parent="." node_paths=PackedStringArray("portal_controller", "camera") instance=ExtResource("7_s3hib")]
 unique_name_in_owner = true
-position = Vector2(116, 641)
+position = Vector2(93, 737)
 portal_controller = NodePath("../PortalController")
 camera = NodePath("../Camera_tracker")
 
@@ -963,7 +963,7 @@ position = Vector2(1504, 960)
 scale = Vector2(0.991134, 1)
 
 [node name="Goal" parent="." instance=ExtResource("8_6wule")]
-position = Vector2(1421, 752)
+position = Vector2(1405, 736)
 
 [node name="BasicEnemy" parent="." instance=ExtResource("9_d600u")]
 position = Vector2(1133, 730)

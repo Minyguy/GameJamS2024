@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://com7pllttxm3n"]
+
+[ext_resource type="Script" path="res://pickupable.gd" id="1_tg2fx"]
+[ext_resource type="Texture2D" uid="uid://hiv30nqqjcam" path="res://Sprites/Terrain/energy.png" id="1_wmc63"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rjr78"]
+size = Vector2(11, 14)
+
+[node name="Speedboost" type="Area2D"]
+script = ExtResource("1_tg2fx")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+scale = Vector2(2, 2)
+texture = ExtResource("1_wmc63")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-1, 0)
+scale = Vector2(2, 2)
+shape = SubResource("RectangleShape2D_rjr78")

@@ -57,8 +57,8 @@ func _physics_process(delta):
 				flip_direction = true
 			
 			elif ground.get_terrain_set_at_global(Vector2(global_position.x+DIRECTION_WALK*20, global_position.y+32)) == -1:
-				if (ground.get_terrain_set_at_global(Vector2(global_position.x+DIRECTION_WALK*4*32, global_position.y+32))) != null:
-					if (ground.get_terrain_set_at_global(Vector2(global_position.x+DIRECTION_WALK*4*32, global_position.y)) == null):
+				if (ground.get_terrain_set_at_global(Vector2(global_position.x+DIRECTION_WALK*4*32, global_position.y+32))) != -1:
+					if (ground.get_terrain_set_at_global(Vector2(global_position.x+DIRECTION_WALK*4*32, global_position.y)) == -1):
 						velocity.y -= 405
 						
 					else:

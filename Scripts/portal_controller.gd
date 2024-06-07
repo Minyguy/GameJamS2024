@@ -179,3 +179,4 @@ func _on_area_entered(area):
 				camera.switch_target(player)
 				worming = false
 				visible = false
+				player.stop_worming()

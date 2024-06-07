@@ -370,3 +370,4 @@ icon = ExtResource("19_hsc6p")
 [connection signal="pressed" from="level_select/MarginContainer/Control/VBoxContainer/HBoxContainer/Button3" to="." method="_on_button_3_pressed"]
 [connection signal="pressed" from="level_select/MarginContainer/Control/VBoxContainer/HBoxContainer/Button4" to="." method="_on_button_4_pressed"]
 [connection signal="pressed" from="level_select/MarginContainer/Control/VBoxContainer/HBoxContainer/Button5" to="." method="_on_button_5_pressed"]
+[connection signal="pressed" from="level_select/MarginContainer/Control/VBoxContainer/HBoxContainer2/Button6" to="." method="_on_button_6_pressed"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://buf0wyrj6hk58"]
+[gd_scene load_steps=13 format=3 uid="uid://buf0wyrj6hk58"]
 
 [ext_resource type="Script" path="res://Scripts/level.gd" id="1_qxqts"]
 [ext_resource type="Texture2D" uid="uid://y85x7j7r16m5" path="res://Sprites/Terrain/Blue.png" id="2_i3o2h"]
@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://bdt5a1vvpfm04" path="res://Subscenes/camera_tracker.tscn" id="6_xs001"]
 [ext_resource type="PackedScene" uid="uid://cqm6qwo4sq81" path="res://Subscenes/player.tscn" id="7_o8k32"]
 [ext_resource type="PackedScene" uid="uid://cap8hq1acst7c" path="res://Subscenes/goal.tscn" id="8_uojy5"]
+[ext_resource type="Texture2D" uid="uid://dhb02igipk4ag" path="res://Sprites/Terrain/right_click.png" id="9_ugyq7"]
 
 [sub_resource type="GDScript" id="GDScript_fg7mj"]
 script/source = "extends TextureRect
@@ -926,8 +927,8 @@ script = ExtResource("1_qxqts")
 [node name="TextureRect" type="TextureRect" parent="."]
 z_index = -5
 texture_filter = 1
-offset_left = -268.0
-offset_top = -141.0
+offset_left = -901.0
+offset_top = -745.0
 offset_right = 5468.0
 offset_bottom = 2842.0
 texture = ExtResource("2_i3o2h")
@@ -962,6 +963,14 @@ position = Vector2(960, 960)
 scale = Vector2(0.991134, 1)
 
 [node name="Goal" parent="." instance=ExtResource("8_uojy5")]
-position = Vector2(863, 752)
+position = Vector2(855, 736)
+
+[node name="TextureRect2" type="TextureRect" parent="."]
+texture_filter = 1
+offset_left = 412.0
+offset_top = 704.0
+offset_right = 476.0
+offset_bottom = 768.0
+texture = ExtResource("9_ugyq7")
 
 [connection signal="body_shape_entered" from="Goal" to="." method="_on_goal_body_shape_entered"]

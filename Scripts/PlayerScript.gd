@@ -3,6 +3,7 @@ const gravity = 2900
 const FLOAT_MOD = 2500.0
 
 @export var SPEED = 300.0
+@export var SPEED_BOOST = 70.0
 @export var JUMP_VELOCITY = 500
 @export var portal_controller : Area2D
 @export var camera : Node2D
@@ -41,6 +42,7 @@ var ground : TileMap
 var bullet_path
 var _animated_sprite : AnimatedSprite2D
 var shape : CollisionShape2D
+var speed_boost_timer = 0
 
 func start_worming():
 	
@@ -81,7 +83,7 @@ func _ready():
 func _process(delta):
 	#Grow to normal size
 	if scale != Vector2(sign(scale.x)*1, sign(scale.y)*1) and not teleporting:
-		scale = scale.move_toward(Vector2(sign(scale.x)*1, sign(scale.y)*1), 3*delta)
+		scale = scale.move_toward(Vector2(sign(scale.x)*1, sign(scale.y)*1), 5*delta)
 	
 
 func _physics_process(delta):
@@ -147,7 +149,7 @@ func _physics_process(delta):
 	
 	if alive:
 		if direction  and not worm_time: 
-			velocity.x = move_toward(velocity.x, SPEED*direction, SPEED*delta*8)
+			velocity.x = move_toward(velocity.x, (SPEED + sign(speed_boost_timer)*SPEED_BOOST)*direction, SPEED*delta*8)
 			
 			if is_on_floor():
 				_animated_sprite.play("running")
@@ -219,6 +221,7 @@ func stop_teleport():
 
 func reduce_cooldowns(delta):
 	curr_shoot_cd = move_toward(curr_shoot_cd, 0, 1*delta)
+	speed_boost_timer = move_toward(speed_boost_timer, 0, delta)
 
 func try_jump():
 	if (is_on_floor() or airtime < coyote_time) and alive and not worm_time:
@@ -257,3 +260,15 @@ func process_teleporting():
 				print("Player Starting tp with direction right")
 			portal.receive_passenger(self, is_left_in_portal)
 			in_portal = true
+
+
+func _on_collectible_area_area_entered(area):
+	print("FOUND AREA")
+	print(area.name)
+	print("-------")
+	if area.has_method("get_type"):
+		match(area.get_type()):
+			"speed_boost":
+				speed_boost_timer = 5
+			_:
+				print(area.name)

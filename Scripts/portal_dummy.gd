@@ -9,9 +9,9 @@ signal entity_teleport(object)
 var approved_types = []
 var teleporting = false
 
-const teleport_time : int = 1 #Frames
+const teleport_time : int = 2 #Frames
 
-var passenger : Node2D
+var passengers = []
 var passenger_direction : bool
 var passenger_timer : float
 var has_passenger : bool
@@ -57,18 +57,16 @@ func _physics_process(delta):
 		_:
 			print("PROBLEM WITH PORTAL SUBTYPE")
 	
-	if(not teleporting):
+	if(passengers.size() == 0):
 		scale = scale.move_toward(Vector2(1, 1), 3*delta)
 	
 	if(has_passenger):
-		passenger_timer += 1
-		print(passenger_timer)
-		print(delta)
-		if passenger_timer > teleport_time:
-			do_teleport()
-			passenger = null
-			has_passenger = false
-			passenger_timer = 0
+		for n in range(passengers.size()-1, -1, -1):
+			passengers[n][2] += 1
+			if passengers[n][2] > teleport_time:
+				
+				do_teleport(passengers[n])
+				passengers.remove_at(n)
 	
 	if cooldown > 0:
 		cooldown -= delta
@@ -89,37 +87,34 @@ func _on_body_shape_entered(body_rid, body, body_shape_index, local_shape_index)
 							cooldown = 2
 
 func receive_passenger(_object, _is_left):
-	passenger = _object
-	passenger_direction = _is_left
+	var new_passenger = [_object, _is_left, 0]
 	
-	passenger_timer = 0
-	if not passenger_direction:
-		passenger_timer = 1
+	if not new_passenger[1]:
+		new_passenger[2] = 1
 	has_passenger = true
 	teleporting = true
-	passenger.global_position = global_position
+	new_passenger[0].global_position = global_position
+	passengers.append(new_passenger)
 	scale = Vector2(1.3,1.3)
 
-func do_teleport():
-	
-	if(passenger != null and (portal_completed or subtype == "Link")):
-		if(passenger_direction):
+func do_teleport(passenger):
+	if(passengers != [] and (portal_completed or subtype == "Link")):
+		if(passenger[1]):
 			print("Sending passenger in direction left")
 		else:
 			print("Sending passenger in direction right")
 			
 		# 4 is the number for string 
-		if typeof(get_next_portal(passenger_direction)) == 4:
-			summon_passenger()
+		if typeof(get_next_portal(passenger[1])) == 4:
+			summon_passenger(passenger)
 		
 		else:
-			get_next_portal(passenger_direction).receive_passenger(passenger, passenger_direction)
+			get_next_portal(passenger[1]).receive_passenger(passenger[0],passenger[1])
 		
 		scale = scale.move_toward(Vector2(1, 1),0.03)
-		teleporting = false
-		passenger = null
-		passenger_timer = 0
-		has_passenger = false
+		if passengers.size() == 0:
+			teleporting = false
+			has_passenger = false
 
 
 func get_next_portal(is_left):
@@ -128,9 +123,7 @@ func get_next_portal(is_left):
 	else:
 		return right_portal
 
-func summon_passenger():
-	passenger.position -= global_position.direction_to(get_next_portal(not passenger_direction).global_position)*8
-	passenger.velocity = -global_position.direction_to(get_next_portal(not passenger_direction).global_position)*400
-	passenger.stop_teleport()
-	passenger = null
-	
+func summon_passenger(_passenger):
+	_passenger[0].global_position -= global_position.direction_to(get_next_portal(not _passenger[1]).global_position)*8
+	_passenger[0].velocity = -global_position.direction_to(get_next_portal(not _passenger[1]).global_position)*350
+	_passenger[0].stop_teleport()
