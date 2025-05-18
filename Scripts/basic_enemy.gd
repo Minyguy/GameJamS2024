@@ -143,3 +143,6 @@ func process_teleporting():
 				print("Starting tp with direction right")
 			portal.receive_passenger(self, is_left_in_portal)
 			in_portal = true
+
+func get_type():
+	return "enemy"

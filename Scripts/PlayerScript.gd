@@ -272,3 +272,4 @@ func _on_collectible_area_area_entered(area):
 				speed_boost_timer = 5
 			_:
 				print(area.name)
+			
